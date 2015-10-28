@@ -35,7 +35,15 @@
 			<Interface name="biz.dfch.Appclusive.Interfaces.Lifecycle">
 				<Operation name="OnCreated"/>
 				<Operation name="OnDeplyoment"/>
-				<Operation name="OnProvisioning"/>
+				<Operation name="OnProvisioning">
+				  <InputParameters>
+					<InputParameter name="JobId" type="xsi:int64" required="true" />
+					<InputParameter name="ImpersonationContext" type="xsi:object" required="true" />
+				  </InputParameters>
+				  <OutputParameters>
+					<OutputParameter name="OutputParameter" type="xsi:object" required="true" />
+				  </OutputParameters>
+				</Operation>
 				<Operation name="OnStarted"/>
 				<Operation name="OnStopped"/>
 				<Operation name="OnDecommissioning"/>

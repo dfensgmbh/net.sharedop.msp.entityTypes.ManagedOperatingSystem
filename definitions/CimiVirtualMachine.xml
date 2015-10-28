@@ -1,0 +1,23 @@
+<Definitions 
+	id="9aca17c9-41af-4bf3-b185-d8d713a91159" 
+	name="CimiVirtualMachine"
+	targetNamespace="http://www.example.com/SampleArtifacts"
+	xmlns:sat="http://www.example.com/SampleArtifactTypes" >
+
+	<Import 
+		namespace="http://www.example.com/SampleArtifactTypes"
+		location="http://www.example.com/Types/MyArtifactTypes.tosca"
+		importType="http://docs.oasis-open.org/tosca/ns/2011/12" 
+	/>
+
+	<ArtifactTemplate 
+		id="9b888e05-74a6-437b-aeec-445022271904"
+		name="My Cimi Machine"
+		Type="sat:CimiMachine"
+	>
+		<ArtifactReferences>
+			<ArtifactReference reference="http://cimi.swisscomcloud.com/api/CimiVirtualMachine/43c7c402-d68b-46c0-aeef-899f94293628" />
+		</ArtifactReferences>
+	</ArtifactTemplate>
+
+</Definitions>

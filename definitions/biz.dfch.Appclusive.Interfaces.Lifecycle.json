@@ -1,0 +1,23 @@
+{
+	"Created-Continue": "Deplyoment"
+	,
+	"Created-Cancel": "Decommissioned"
+	,
+	"Deplyoment-Continue": "Provisioning"
+	,
+	"Deplyoment-Cancel": "Decommissioned"
+	,
+	"Provisioning-Continue": "Started"
+	,
+	"Provisioning-Cancel": "Decommissioning"
+	,
+	"Started-Stop": "Stopped"
+	,
+	"Started-Cancel": "Decommissioning"
+	,
+	"Stopped-Start": "Started"
+	,
+	"Stopped-Cancel": "Decommissioning"
+	,
+	"Decommissioning-Continue": "Decommissioned"
+}

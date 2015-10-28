@@ -35,7 +35,7 @@ namespace net.sharedop.msp.entityTypes.ManagedOperatingSystem
 
         [Required]
         public string Name { get; set; }
-        [StringLength(250)]
+        [StringLength(500)]
         [DisplayName("This is a description")]
         public string Description { get; set; }
         public int SomeNiftyParameter { get; set; }

@@ -8,8 +8,6 @@ Describe -Tags "ToscaManifest" "ToscaManifest" {
 	
 	. "$here\$sut"
 	
-	$svc = Enter-AppclusiveServer;
-
 	Context "ToscaManifest" {
 	
 		# Context wide constants

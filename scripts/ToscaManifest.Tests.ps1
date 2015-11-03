@@ -11,11 +11,12 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 	Context "Test-ToscaManifest" {
 	
 		# Context wide constants
-		$RepositoryUrl = 'https://raw.githubusercontent.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem/';
+		$RepositoryUrl = 'https://raw.githubusercontent.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem';
 		$BranchName = 'master';
 
-		New-Variable baseUri;
-		$manifestUri;
+		New-Variable -Name baseUri -Scope Script;
+		New-Variable -Name manifestUri -Scope Script;
+		New-Variable -Name xml -Scope Script;
 		
 		$Manifest = 'TOSCA-Metadata/TOSCA.meta';
 
@@ -27,31 +28,36 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 
 		It "Manifest-IsValidBaseUri" -Test {
 			# Arrange
+			$_baseUri = '{0}/{1}' -f $RepositoryUrl.Trim('/'), $BranchName.Trim('/');
 			
 			# Act
-			$result = [Uri]::TryCreate([uri] $RepositoryUrl, [uri] $BranchName, [ref] $baseUri);
+			$result = [uri]::IsWellFormedUriString($_baseUri, [System.UriKind]::Absolute);
 			
 			# Assert
 			$result | Should Be $true;
+			Set-Variable -Name baseUri -Value (New-Object System.Uri($_baseUri)) -Scope Script;
 			$baseUri.IsAbsoluteUri | Should Be $true;
 		}
 		
 		It "Manifest-IsValidManifestUri" -Test {
 			# Arrange
+			$_manifestUri = '{0}/{1}' -f $baseUri.AbsoluteUri.Trim('/'), $Manifest.Trim('/');
 
 			# Act
-			[uri] $manifestUri = '{0}/{1}' -f $baseUri.AbsoluteUri, $Manifest;
+			$result = [uri]::IsWellFormedUriString($_manifestUri, [System.UriKind]::Absolute);
 			
 			# Assert
+			$result | Should Be $true;
+			Set-Variable -Name manifestUri -Value (New-Object System.Uri($_manifestUri)) -Scope Script;
 			$manifestUri.IsAbsoluteUri | Should Be $true;
-			
 		}
 		
 		It "Manifest-IsAvailable" -Test {
 			# Arrange
 
 			# Act
-			$xml = Invoke-RestMethod $manifestUri;
+			$_xml = Invoke-RestMethod $manifestUri;
+			Set-Variable -Name xml -Value $_xml	-Scope Script;
 			
 			# Assert
 			$xml | Should Not Be $null;
@@ -222,55 +228,25 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 			foreach($artifactReferece in $xml.Definitions.ArtifactReferences.ArtifactReference)
 			{
 				$artifactReferece.reference | Should Not Be $null;
-				[uri] $uriArtifactReferece = $artifactReferece.reference;
-				$uriArtifactReferece | Should Not Be $null;
+				[uri] $uriArtifactReference = $artifactReferece.reference;
+				$uriArtifactReference | Should Not Be $null;
 				try
 				{
-					if($uriArtifactReferece.IsAbsoluteUri)
+					if($uriArtifactReference.IsAbsoluteUri)
 					{
-						$result = Invoke-RestMethod $uriArtifactReferece;
+						$result = Invoke-RestMethod $uriArtifactReference;
 					}
 					else
 					{
+						$result = Invoke-RestMethod ("{0}/{1}" -f (Get-Variable -Name baseUri -ValueOnly).AbsoluteUri, $uriArtifactReference.OriginalString)
 					}
 					$result | Should Not Be $null;
 				}
 				catch
 				{
-					'URI not found' | Should Be $uriArtifactReferece;
+					'URI not found' | Should Be $uriArtifactReference;
 				}
 			}
 		}
-		
-		# It "Manifest-" -Test {		
-			# # Arrange
-			
-			# https://gitlab.msp.sharedop.net/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem/{0}/scripts/OnCreated.bpmn20.xml
-			
-			# # Act
-			# $type = $xml.Definitions.ServiceTemplate.TopologyTemplate.NodeTemplate.type
-			
-			# # Act and Assert
-			# $xml.Definitions.NodeType.type | Should Be $type
-			
-			# foreach ($operation in $if.Operation.name) {
-				# $result = $xml.Definitions.ArtifactReferences.ArtifactReference.Id |? operationName -eq $operation;
-				# $result.operationName | Should Be $operation
-				# 1 | Should Be 1;
-				
-				# $fsm = Invoke-RestMethod 'https://raw.githubusercontent.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem/master/definitions/biz.dfch.Appclusive.Interfaces.Lifecycle.json'
-				# $fsm.GetType()
-			# }
-		
-			# # $xml.Definitions.ArtifactReferences.ArtifactReference |? id -eq 'cd116073-97b7-45d0-879d-5177de92158d'
-			# # ($xml.Definitions.ArtifactReferences.ArtifactReference |? id -eq 'cd116073-97b7-45d0-879d-5177de92158d').reference
-			# Invoke-RestMethod 'https://gitlab.msp.sharedop.net/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem/{0}/scripts/OnStarted.bpmn20.xml'
-			# Invoke-RestMethod 'https://github.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem/{0}/scripts/OnStarted.bpmn20.xml'
-			# Invoke-RestMethod 'https://raw.githubusercontent.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem/master/scripts/OnDecommissioning.bpmn20.xml'
-			# Invoke-RestMethod 'https://raw.githubusercontent.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem/master/definitions/biz.dfch.Appclusive.Interfaces.Lifecycle.json'
-			# Invoke-RestMethod 'https://raw.githubusercontent.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem/master/definitions/biz.dfch.Appclusive.Interfaces.Lifecycle.json' | ConvertFrom-Json
-			# # $fsm = Invoke-RestMethod 'https://raw.githubusercontent.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem/master/definitions/biz.dfch.Appclusive.Interfaces.Lifecycle.json'
-			# # $fsm.GetType()
-		# }		
 	}
 }

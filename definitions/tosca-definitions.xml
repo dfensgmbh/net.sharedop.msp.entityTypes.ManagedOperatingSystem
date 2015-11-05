@@ -18,6 +18,7 @@
 				>
 				<Properties>
 					<cms:ManagedOperatingSystemInputTemplate xmlns="http://appclusive.net/common/toscaTypes">
+						<!-- types can be any valid type defined in XSD -->
 						<name xsi:required="true" >NameRequired</name>
 						<description xsi:required="false" >DescriptionOptional</description>
 						<type xsi:required="true" maxOccurs="1" >Customer|Limited|Full</type>
@@ -33,7 +34,68 @@
 
 	<NodeType type="cms:ManagedOperatingSystemImplementation">
 		<Interfaces>
-			<Interface name="biz.dfch.Appclusive.Interfaces.Lifecycle">
+			<Interface name="biz.dfch.Appclusive.Interfaces.Lifecycle.Transitions">
+				<Operation name="OnCreated">
+				  <InputParameters>
+					<InputParameter name="Transition-ca0a54d7-4865-446e-9b48-3a62ed89a82a-Continue" type="xsi:string" required="true" />
+					<InputParameter name="Transition-5e0f9843-51f6-4cc6-aa93-b0b4d8de49ed-Cancel" type="xsi:string" required="true" />
+				  </InputParameters>
+				  <OutputParameters>
+					<OutputParameter name="NextState-ca0a54d7-4865-446e-9b48-3a62ed89a82a-Deplyoment" type="xsi:string" required="true" />
+					<OutputParameter name="NextState-5e0f9843-51f6-4cc6-aa93-b0b4d8de49ed-Decommissioned" type="xsi:string" required="true" />
+				  </OutputParameters>
+				</Operation>
+				<Operation name="OnDeplyoment">
+				  <InputParameters>
+					<InputParameter name="Transition-cb91dc65-00ee-4c60-a7be-b2b4bb500a5e-Continue" type="xsi:string" required="true" />
+					<InputParameter name="Transition-f84eb397-a7c5-41a3-a319-2471a881048c-Cancel" type="xsi:string" required="true" />
+				  </InputParameters>
+				  <OutputParameters>
+					<OutputParameter name="NextState-cb91dc65-00ee-4c60-a7be-b2b4bb500a5e-Provisioning" type="xsi:string" required="true" />
+					<OutputParameter name="NextState-f84eb397-a7c5-41a3-a319-2471a881048c-Decommissioned" type="xsi:string" required="true" />
+				  </OutputParameters>
+				</Operation>
+				<Operation name="OnProvisioning">
+				  <InputParameters>
+					<InputParameter name="Transition-d904f737-ff30-4007-a183-f89f72b94d2c-Continue" type="xsi:string" required="true" />
+					<InputParameter name="Transition-9368c2a9-023c-4e41-8391-12301b824db5-Cancel" type="xsi:string" required="true" />
+				  </InputParameters>
+				  <OutputParameters>
+					<OutputParameter name="NextState-d904f737-ff30-4007-a183-f89f72b94d2c-Started" type="xsi:string" required="true" />
+					<OutputParameter name="NextState-9368c2a9-023c-4e41-8391-12301b824db5-Decommissioned" type="xsi:string" required="true" />
+				  </OutputParameters>
+				</Operation>
+				<Operation name="OnStarted">
+				  <InputParameters>
+					<InputParameter name="Transition-a2ecdbc0-d2e3-4576-9317-1fe145fce6fd-Continue" type="xsi:string" required="true" />
+					<InputParameter name="Transition-161da8b5-85cf-43c0-8712-f20ce740e53c-Cancel" type="xsi:string" required="true" />
+				  </InputParameters>
+				  <OutputParameters>
+					<OutputParameter name="NextState-a2ecdbc0-d2e3-4576-9317-1fe145fce6fd-Stopped" type="xsi:string" required="true" />
+					<OutputParameter name="NextState-161da8b5-85cf-43c0-8712-f20ce740e53c-Decommissioned" type="xsi:string" required="true" />
+				  </OutputParameters>
+				</Operation>
+				<Operation name="OnStopped">
+				  <InputParameters>
+					<InputParameter name="Transition-87f94974-a042-4f6c-964f-4498d46a0b9d-Continue" type="xsi:string" required="true" />
+					<InputParameter name="Transition-24de7a18-40c0-40ab-8680-98f2f0a7bb17-Cancel" type="xsi:string" required="true" />
+				  </InputParameters>
+				  <OutputParameters>
+					<OutputParameter name="NextState-87f94974-a042-4f6c-964f-4498d46a0b9d-Started" type="xsi:string" required="true" />
+					<OutputParameter name="NextState-24de7a18-40c0-40ab-8680-98f2f0a7bb17-Decommissioned" type="xsi:string" required="true" />
+				  </OutputParameters>
+				</Operation>
+				<Operation name="OnDecommissioning">
+				  <InputParameters>
+					<InputParameter name="Transition-57e85979-9251-404a-9915-83539f1ea2f0-Continue" type="xsi:string" required="true" />
+				  </InputParameters>
+				  <OutputParameters>
+					<OutputParameter name="NextState-57e85979-9251-404a-9915-83539f1ea2f0-Decommissioned" type="xsi:string" required="true" />
+				  </OutputParameters>
+				</Operation>
+				<Operation name="OnDecommissioned" />
+			</Interface>
+			<Interface name="biz.dfch.Appclusive.Interfaces.Lifecycle.States">
 				<Operation name="OnCreated"/>
 				<Operation name="OnDeplyoment"/>
 				<Operation name="OnProvisioning">

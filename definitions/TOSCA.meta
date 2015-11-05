@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<Definitions 
+	xmlns="http://docs.oasis-open.org/tosca/ns/2011/12"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cms="http://cms.appclusive.net/toscaTypes"
+	xmlns:tms="https://cms.appclusive.net/dfensgmbh/net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+	targetNamespace="https://cms.appclusive.net/dfensgmbh/net.sharedop.cms.entityTypes.ManagedOperatingSystem" >
+
+	<Import importType="http://docs.oasis-open.org/tosca/ns/2011/12"
+			namespace="http://appclusive.net/tosca/toscaTypes" />
+
+	<ServiceTemplate name="net.sharedop.cms.entityTypes.ManagedOperatingSystem">
+		<TopologyTemplate>
+			<NodeTemplate
+				id="5fa2c334-6039-42ad-b0b3-2f452ed120bc"
+				type="cms:ManagedOperatingSystemImplementation"
+				name="ManagedOperatingSystem"
+				>
+				<Properties>
+					<cms:ManagedOperatingSystemInputTemplate xmlns="http://appclusive.net/common/toscaTypes">
+						<name xsi:required="true" >NameRequired</name>
+						<description xsi:required="false" >DescriptionOptional</description>
+						<type xsi:required="true" maxOccurs="1" >Customer|Limited|Full</type>
+					</cms:ManagedOperatingSystemInputTemplate>
+				</Properties>
+				<DeploymentArtifact
+					artifactType="cms:Puppet"
+					name="net.sharedop.cms.Puppet.Packages.ManagedOperatingSystem"
+				/>
+			</NodeTemplate>
+		</TopologyTemplate>
+	</ServiceTemplate>
+
+	<NodeType type="cms:ManagedOperatingSystemImplementation">
+		<Interfaces>
+			<Interface name="biz.dfch.Appclusive.Interfaces.Lifecycle">
+				<Operation name="OnCreated"/>
+				<Operation name="OnDeplyoment"/>
+				<Operation name="OnProvisioning">
+				  <InputParameters>
+					<InputParameter name="JobId" type="xsi:int64" required="true" />
+					<InputParameter name="ImpersonationContext" type="xsi:object" required="true" />
+				  </InputParameters>
+				  <OutputParameters>
+					<OutputParameter name="OutputParameter" type="xsi:object" required="true" />
+				  </OutputParameters>
+				</Operation>
+				<Operation name="OnStarted"/>
+				<Operation name="OnStopped"/>
+				<Operation name="OnDecommissioning"/>
+				<Operation name="OnDecommissioned"/>
+			</Interface>
+		</Interfaces>
+	</NodeType>
+			
+	<NodeTypeImplementation name="ManagedOperatingSystemImplementation" >
+		<ImplementationArtifacts>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				operationName="OnCreated"
+				artifactType="net.sharedop.cms.artifactTypes.bpmn.2" 
+				artifactRef="6db78fe0-5952-405e-914e-6704c3d43b9d"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				operationName="OnDeplyoment"
+				artifactType="net.sharedop.cms.artifactTypes.bpmn.2" 
+				artifactRef="b96c8e34-f321-429c-bb8d-987407842331"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				operationName="OnProvisioning"
+				artifactType="net.sharedop.cms.artifactTypes.bpmn.2" 
+				artifactRef="eb647d6c-3af0-4ee7-959d-7d99f567be85"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				operationName="OnStarted"
+				artifactType="net.sharedop.cms.artifactTypes.bpmn.2" 
+				artifactRef="cd116073-97b7-45d0-879d-5177de92158d"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				operationName="OnStopped"
+				artifactType="net.sharedop.cms.artifactTypes.bpmn.2" 
+				artifactRef="815072f3-70b3-4d95-bb25-c21bc1c7a888"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				operationName="OnDecommissioning"
+				artifactType="net.sharedop.cms.artifactTypes.bpmn.2" 
+				artifactRef="c0246929-c073-43de-90c4-037c017ef8b2"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				operationName="OnDecommissioned"
+				artifactType="net.sharedop.cms.artifactTypes.bpmn.2" 
+				artifactRef="05385109-6ba1-4245-a943-4837f0054d4e"
+			/>
+			
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				artifactType="net.sharedop.cms.artifactTypes.dto.1" 
+				artifactRef="7f5819c4-ddf5-4941-9103-3db5c86e52e2"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				artifactType="net.sharedop.cms.artifactTypes.dto.1" 
+				artifactRef="f00b8758-ec53-4c1a-9932-7dc3b6ad6964"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				artifactType="net.sharedop.cms.artifactTypes.dto.1" 
+				artifactRef="9f680762-3936-4020-904b-52aff69b50ac"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				artifactType="net.sharedop.cms.artifactTypes.dto.1" 
+				artifactRef="d530f403-2ff8-44b6-a11c-df9be20eeda2"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				artifactType="net.sharedop.cms.artifactTypes.dto.1" 
+				artifactRef="0022467b-0890-485a-b28d-94339c8502db"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				artifactType="net.sharedop.cms.artifactTypes.dto.1" 
+				artifactRef="b9fd93a7-feb8-4951-8e87-2417ca2f8083"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				artifactType="net.sharedop.cms.artifactTypes.dto.1" 
+				artifactRef="02b0eeaa-47d1-427c-874b-865574c13574"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				artifactType="net.sharedop.cms.artifactTypes.dto.1" 
+				artifactRef="ec743a26-0270-49b2-9ace-0ecaf1d8655e"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				artifactType="net.sharedop.cms.artifactTypes.dto.1" 
+				artifactRef="55991ac6-fa0b-4b88-82cb-8363c696f373"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				artifactType="net.sharedop.cms.artifactTypes.dto.1" 
+				artifactRef="696cfcd6-7353-4c1b-9852-5f192b32c303"
+			/>
+			<ImplementationArtifact
+				interfaceName="net.sharedop.cms.entityTypes.ManagedOperatingSystem"
+				artifactType="net.sharedop.cms.artifactTypes.dto.1" 
+				artifactRef="c1001e40-2f86-4b56-ba47-8165156d451b"
+			/>
+		</ImplementationArtifacts>
+			
+		<DeploymentArtifacts>
+			<DeploymentArtifact 
+				artifactRef="7bc5fc4d-2e72-4053-be7e-8b2649929cd9"
+				artifactType="cms:Puppet"
+				name="net.sharedop.cms.Puppet.Packages.ManagedOperatingSystem"
+			/>
+		</DeploymentArtifacts>
+	</NodeTypeImplementation>
+
+	<ArtifactReferences>
+		<ArtifactReference id="6db78fe0-5952-405e-914e-6704c3d43b9d" reference="https://raw.githubusercontent.com/dfensgmbh/net.sharedop.cms.entityTypes.ManagedOperatingSystem/master/scripts/OnCreated.bpmn20.xml" />
+		<ArtifactReference id="b96c8e34-f321-429c-bb8d-987407842331" reference="scripts/OnDeplyoment.bpmn20.xml" />
+		<ArtifactReference id="eb647d6c-3af0-4ee7-959d-7d99f567be85" reference="scripts/OnProvisioning.bpmn20.xml" />
+		<ArtifactReference id="cd116073-97b7-45d0-879d-5177de92158d" reference="scripts/OnStarted.bpmn20.xml" />
+		<ArtifactReference id="815072f3-70b3-4d95-bb25-c21bc1c7a888" reference="scripts/OnStopped.bpmn20.xml" />
+		<ArtifactReference id="c0246929-c073-43de-90c4-037c017ef8b2" reference="scripts/OnDecommissioning.bpmn20.xml" />
+		<ArtifactReference id="05385109-6ba1-4245-a943-4837f0054d4e" reference="scripts/OnDecommissioned.bpmn20.xml" />
+		
+		<ArtifactReference id="7f5819c4-ddf5-4941-9103-3db5c86e52e2" reference="defintions/Created-Continue.cs" />
+		<ArtifactReference id="f00b8758-ec53-4c1a-9932-7dc3b6ad6964" reference="defintions/Created-Cancel.cs" />
+		<ArtifactReference id="9f680762-3936-4020-904b-52aff69b50ac" reference="defintions/Decommissioning-Continue.cs" />
+		<ArtifactReference id="d530f403-2ff8-44b6-a11c-df9be20eeda2" reference="defintions/Deplyoment-Cancel.cs" />
+		<ArtifactReference id="0022467b-0890-485a-b28d-94339c8502db" reference="defintionsDeplyoment-Continue.cs" />
+		<ArtifactReference id="b9fd93a7-feb8-4951-8e87-2417ca2f8083" reference="defintions/Provisioning-Cancel.cs" />
+		<ArtifactReference id="02b0eeaa-47d1-427c-874b-865574c13574" reference="defintions/Provisioning-Continue.cs" />
+		<ArtifactReference id="ec743a26-0270-49b2-9ace-0ecaf1d8655e" reference="defintions/Started-Cancel.cs" />
+		<ArtifactReference id="55991ac6-fa0b-4b88-82cb-8363c696f373" reference="defintions/Started-Stop.cs" />
+		<ArtifactReference id="696cfcd6-7353-4c1b-9852-5f192b32c303" reference="defintions/Stopped-Cancel.cs" />
+		<ArtifactReference id="c1001e40-2f86-4b56-ba47-8165156d451b" reference="defintions/Stopped-Start.cs" />
+
+		<ArtifactReference id="7bc5fc4d-2e72-4053-be7e-8b2649929cd9" reference="files/net.sharedop.cms.Puppet.Packages.ManagedOperatingSystem" />
+	</ArtifactReferences>
+</Definitions>

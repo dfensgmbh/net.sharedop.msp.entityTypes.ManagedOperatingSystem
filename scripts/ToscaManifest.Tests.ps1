@@ -11,11 +11,18 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 	Context "Test-ToscaManifest" {
 	
 		# Context wide constants
-		$RepositoryUrl = 'https://raw.githubusercontent.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem';
-		$BranchName = 'master';
-
+		if(!Test-Path variable:RepositoryUrl)
+		{
+			$RepositoryUrl = 'https://raw.githubusercontent.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem';
+		}
+		if(!Test-Path variable:BranchName)
+		{
+			$BranchName = 'master';
+		}
+		
 		New-Variable -Name baseUri -Scope Script;
 		New-Variable -Name manifestUri -Scope Script;
+		New-Variable -Name manifestContent -Scope Script;
 		New-Variable -Name xml -Scope Script;
 		
 		$Manifest = 'TOSCA-Metadata/TOSCA.meta';
@@ -56,13 +63,37 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 			# Arrange
 
 			# Act
-			$_xml = Invoke-RestMethod $manifestUri;
-			Set-Variable -Name xml -Value $_xml	-Scope Script;
+			$_manifestContent = Invoke-RestMethod $manifestUri;
+			Set-Variable -Name manifestContent -Value $_xml	-Scope Script;
 			
 			# Assert
-			$xml | Should Not Be $null;
+			$manifestContent | Should Not Be $null;
 		}
 
+		It "Manifest-ContainsDefinitions" -Test {
+			# Arrange
+			# use this regex to extract the definitions from a tosca manifest
+			$regex = '(?m)(^Name:\ (.+)$\n^Content-Type:\ (.+)$)';
+			# match will look like this
+			# $Matches
+			# Name Value
+			# ---- -----
+			# 3    application/vnd.oasis.tosca.definitions
+			# 2    definitions/tosca-definitions.xml
+			# 1    Name: definitions/tosca-definitions.xml
+			# 0    Name: definitions/tosca-definitions.xml
+			
+			# Act
+			$isMatch = $manifestContent -match $regex;
+			
+			# Assert
+			$isMatch | Should Be $true;
+			$Matches.Count | Should Be 4;
+			
+			$_xml = Invoke-RestMethod ('{0}/{1}' -f $baseUri, $Matches[2]);
+			Set-Variable -Name xml -Value $_xml	-Scope Script;
+		}
+		
 		It "Manifest-IsValidXmlDocument" -Test {
 			# Arrange
 

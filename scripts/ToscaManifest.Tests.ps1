@@ -1,3 +1,4 @@
+#Requires -Modules Microsoft.PowerShell.Management
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
@@ -11,11 +12,11 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 	Context "Test-ToscaManifest" {
 	
 		# Context wide constants
-		if(!Test-Path variable:RepositoryUrl)
+		if(!(Test-Path variable:RepositoryUrl))
 		{
 			$RepositoryUrl = 'https://raw.githubusercontent.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem';
 		}
-		if(!Test-Path variable:BranchName)
+		if(!(Test-Path variable:BranchName))
 		{
 			$BranchName = 'master';
 		}

@@ -107,7 +107,7 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 			$xml -is [System.Xml.XmlDocument] | Should Be $true;
 		}
 
-		It "Manifest-HasDefintionsElement" -Test {
+		It "Manifest-HasDefinitionsElement" -Test {
 			# Arrange
 
 			# Act

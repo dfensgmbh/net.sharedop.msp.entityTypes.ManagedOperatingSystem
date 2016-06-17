@@ -65,7 +65,7 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 
 			# Act
 			$_manifestContent = Invoke-RestMethod $manifestUri;
-			Set-Variable -Name manifestContent -Value $_xml	-Scope Script;
+			Set-Variable -Name manifestContent -Value $_manifestContent	-Scope Script;
 			
 			# Assert
 			$manifestContent | Should Not Be $null;
@@ -93,6 +93,8 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 			
 			$_xml = Invoke-RestMethod ('{0}/{1}' -f $baseUri, $Matches[2]);
 			Set-Variable -Name xml -Value $_xml	-Scope Script;
+			
+			$xml | Should Not Be $null;
 		}
 		
 		It "Manifest-IsValidXmlDocument" -Test {

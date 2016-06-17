@@ -191,7 +191,6 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 				$result = $xml.Definitions.NodeType |? type -eq $NodeTypeName;
 				$result.Interfaces.Interface | Should Not Be $null;
 			}
-			
 		}
 		
 		It "Manifest-NodeTypeRefersToNodeTypeImplementation" -Test {

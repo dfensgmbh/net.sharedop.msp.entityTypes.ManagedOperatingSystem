@@ -235,17 +235,17 @@
 		<ArtifactReference id="c0246929-c073-43de-90c4-037c017ef8b2" reference="scripts/OnDecommissioning.bpmn20.xml" />
 		<ArtifactReference id="05385109-6ba1-4245-a943-4837f0054d4e" reference="scripts/OnDecommissioned.bpmn20.xml" />
 		
-		<ArtifactReference id="7f5819c4-ddf5-4941-9103-3db5c86e52e2" reference="defintions/Created-Continue.cs" />
-		<ArtifactReference id="f00b8758-ec53-4c1a-9932-7dc3b6ad6964" reference="defintions/Created-Cancel.cs" />
-		<ArtifactReference id="9f680762-3936-4020-904b-52aff69b50ac" reference="defintions/Decommissioning-Continue.cs" />
-		<ArtifactReference id="d530f403-2ff8-44b6-a11c-df9be20eeda2" reference="defintions/Deplyoment-Cancel.cs" />
+		<ArtifactReference id="7f5819c4-ddf5-4941-9103-3db5c86e52e2" reference="definitions/Created-Continue.cs" />
+		<ArtifactReference id="f00b8758-ec53-4c1a-9932-7dc3b6ad6964" reference="definitions/Created-Cancel.cs" />
+		<ArtifactReference id="9f680762-3936-4020-904b-52aff69b50ac" reference="definitions/Decommissioning-Continue.cs" />
+		<ArtifactReference id="d530f403-2ff8-44b6-a11c-df9be20eeda2" reference="definitions/Deplyoment-Cancel.cs" />
 		<ArtifactReference id="0022467b-0890-485a-b28d-94339c8502db" reference="defintionsDeplyoment-Continue.cs" />
-		<ArtifactReference id="b9fd93a7-feb8-4951-8e87-2417ca2f8083" reference="defintions/Provisioning-Cancel.cs" />
-		<ArtifactReference id="02b0eeaa-47d1-427c-874b-865574c13574" reference="defintions/Provisioning-Continue.cs" />
-		<ArtifactReference id="ec743a26-0270-49b2-9ace-0ecaf1d8655e" reference="defintions/Started-Cancel.cs" />
-		<ArtifactReference id="55991ac6-fa0b-4b88-82cb-8363c696f373" reference="defintions/Started-Stop.cs" />
-		<ArtifactReference id="696cfcd6-7353-4c1b-9852-5f192b32c303" reference="defintions/Stopped-Cancel.cs" />
-		<ArtifactReference id="c1001e40-2f86-4b56-ba47-8165156d451b" reference="defintions/Stopped-Start.cs" />
+		<ArtifactReference id="b9fd93a7-feb8-4951-8e87-2417ca2f8083" reference="definitions/Provisioning-Cancel.cs" />
+		<ArtifactReference id="02b0eeaa-47d1-427c-874b-865574c13574" reference="definitions/Provisioning-Continue.cs" />
+		<ArtifactReference id="ec743a26-0270-49b2-9ace-0ecaf1d8655e" reference="definitions/Started-Cancel.cs" />
+		<ArtifactReference id="55991ac6-fa0b-4b88-82cb-8363c696f373" reference="definitions/Started-Stop.cs" />
+		<ArtifactReference id="696cfcd6-7353-4c1b-9852-5f192b32c303" reference="definitions/Stopped-Cancel.cs" />
+		<ArtifactReference id="c1001e40-2f86-4b56-ba47-8165156d451b" reference="definitions/Stopped-Start.cs" />
 
 		<ArtifactReference id="7bc5fc4d-2e72-4053-be7e-8b2649929cd9" reference="files/net.sharedop.cms.Puppet.Packages.ManagedOperatingSystem" />
 	</ArtifactReferences>

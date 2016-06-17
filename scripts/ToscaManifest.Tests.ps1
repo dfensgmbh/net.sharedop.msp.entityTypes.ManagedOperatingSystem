@@ -62,9 +62,9 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 		
 		It "Manifest-IsAvailable" -Test {
 			# Arrange
+			$_manifestContent = Invoke-RestMethod $manifestUri;
 
 			# Act
-			$_manifestContent = Invoke-RestMethod $manifestUri;
 			Set-Variable -Name manifestContent -Value $_manifestContent	-Scope Script;
 			
 			# Assert

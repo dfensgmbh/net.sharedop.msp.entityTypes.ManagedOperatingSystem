@@ -28,7 +28,8 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 		
 		$Manifest = 'TOSCA-Metadata/TOSCA.meta';
 
-		$ToscaInterfaceLifecycle = 'biz.dfch.Appclusive.Interfaces.Lifecycle';
+		$ToscaInterfaceLifecycleStates = 'biz.dfch.Appclusive.Interfaces.Lifecycle.States';
+		$ToscaInterfaceLifecycleTransitions = 'biz.dfch.Appclusive.Interfaces.Lifecycle.Transitions';
 		
 		It "Warmup" -Test {			
 			$explanation = 'This test only exists to mitigate the timing error on the first displayed test result.';
@@ -62,10 +63,10 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 		
 		It "Manifest-IsAvailable" -Test {
 			# Arrange
+			$_manifestContent = Invoke-RestMethod $manifestUri;
 
 			# Act
-			$_manifestContent = Invoke-RestMethod $manifestUri;
-			Set-Variable -Name manifestContent -Value $_xml	-Scope Script;
+			Set-Variable -Name manifestContent -Value $_manifestContent	-Scope Script;
 			
 			# Assert
 			$manifestContent | Should Not Be $null;
@@ -93,6 +94,8 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 			
 			$_xml = Invoke-RestMethod ('{0}/{1}' -f $baseUri, $Matches[2]);
 			Set-Variable -Name xml -Value $_xml	-Scope Script;
+			
+			$xml | Should Not Be $null;
 		}
 		
 		It "Manifest-IsValidXmlDocument" -Test {
@@ -101,7 +104,7 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 			# Act
 			
 			# Assert
-			$xml -is [System.Xml.XmlDocument] | Should Be $true
+			$xml -is [System.Xml.XmlDocument] | Should Be $true;
 		}
 
 		It "Manifest-HasDefintionsElement" -Test {
@@ -157,15 +160,25 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 			# Assert
 			$xml.Definitions.Import | Should Not Be $null;
 		}
-
-		It "Manifest-HasLifecycleInterface" -Test {			
+		
+		It "Manifest-HasLifecycleInterfaceForTransitions" -Test {			
 			# Arrange
 
 			# Act
-			$if = $xml.Definitions.NodeType.Interfaces.Interface |? name -eq $ToscaInterfaceLifecycle;
+			$lifecycleInterface = $xml.Definitions.NodeType.Interfaces.Interface |? name -eq $ToscaInterfaceLifecycleTransitions;
 			
 			# Assert
-			$if | Should Not Be $null;
+			$lifecycleInterface | Should Not Be $null;
+		}
+
+		It "Manifest-HasLifecycleInterfaceForStates" -Test {			
+			# Arrange
+
+			# Act
+			$lifecycleInterface = $xml.Definitions.NodeType.Interfaces.Interface |? name -eq $ToscaInterfaceLifecycleStates;
+			
+			# Assert
+			$lifecycleInterface | Should Not Be $null;
 		}
 
 		It "Manifest-NodeTemplateRefersToNodeType" -Test {
@@ -175,21 +188,20 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 			$type = $xml.Definitions.ServiceTemplate.TopologyTemplate.NodeTemplate.type
 			
 			# Assert
-			$xml.Definitions.NodeType.type | Should Be $type
+			$xml.Definitions.NodeType.type | Should Be $type;
 		}
 		
 		It "Manifest-NodeTypeContainsInterfaces" -Test {
 			# Arrange
 			
 			# Act
-			$NodeType = $xml.Definitions.NodeType
+			$nodeType = $xml.Definitions.NodeType;
 			
 			# Act and Assert
-			foreach ($NodeTypeName in $NodeType.type) {
+			foreach ($NodeTypeName in $nodeType.type) {
 				$result = $xml.Definitions.NodeType |? type -eq $NodeTypeName;
 				$result.Interfaces.Interface | Should Not Be $null;
 			}
-			
 		}
 		
 		It "Manifest-NodeTypeRefersToNodeTypeImplementation" -Test {
@@ -216,10 +228,10 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 			# Arrange
 
 			# Act
-			$if = $xml.Definitions.NodeType.Interfaces.Interface |? name -eq 'biz.dfch.Appclusive.Interfaces.Lifecycle'
+			$interface = $xml.Definitions.NodeType.Interfaces.Interface |? name -eq 'biz.dfch.Appclusive.Interfaces.Lifecycle';
 			
 			# Act and Assert
-			foreach ($operation in $if.Operation.name) {
+			foreach ($operation in $interface.Operation.name) {
 				$result = $xml.Definitions.NodeTypeImplementation.ImplementationArtifacts.ImplementationArtifact |? operationName -eq $operation;
 				$result.operationName | Should Be $operation;
 			}
@@ -229,10 +241,10 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 			# Arrange
 
 			# Act
-			$if = $xml.Definitions.NodeTypeImplementation.ImplementationArtifacts.ImplementationArtifact
+			$interface = $xml.Definitions.NodeTypeImplementation.ImplementationArtifacts.ImplementationArtifact
 			
 			# Act and Assert
-			foreach ($artifactRef in $if.artifactRef) {
+			foreach ($artifactRef in $interface.artifactRef) {
 				$result = $xml.Definitions.ArtifactReferences.ArtifactReference |? id -eq $artifactRef;
 				$result.id | Should Be $artifactRef;
 			}
@@ -242,10 +254,10 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 			# Arrange
 
 			# Act
-			$if = $xml.Definitions.NodeTypeImplementation.ImplementationArtifacts.DeploymentArtifacts
+			$interface = $xml.Definitions.NodeTypeImplementation.ImplementationArtifacts.DeploymentArtifacts
 			
 			# Act and Assert
-			foreach ($artifactRef in $if.artifactRef) {
+			foreach ($artifactRef in $interface.artifactRef) {
 				$artifactRef | Should Not Be $null;
 				$result = $xml.Definitions.ArtifactReferences.ArtifactReference |? id -eq $artifactRef;
 				$result.id | Should Not Be $null;

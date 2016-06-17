@@ -239,7 +239,7 @@
 		<ArtifactReference id="f00b8758-ec53-4c1a-9932-7dc3b6ad6964" reference="definitions/Created-Cancel.cs" />
 		<ArtifactReference id="9f680762-3936-4020-904b-52aff69b50ac" reference="definitions/Decommissioning-Continue.cs" />
 		<ArtifactReference id="d530f403-2ff8-44b6-a11c-df9be20eeda2" reference="definitions/Deplyoment-Cancel.cs" />
-		<ArtifactReference id="0022467b-0890-485a-b28d-94339c8502db" reference="definitionsDeplyoment-Continue.cs" />
+		<ArtifactReference id="0022467b-0890-485a-b28d-94339c8502db" reference="definitions/Deplyoment-Continue.cs" />
 		<ArtifactReference id="b9fd93a7-feb8-4951-8e87-2417ca2f8083" reference="definitions/Provisioning-Cancel.cs" />
 		<ArtifactReference id="02b0eeaa-47d1-427c-874b-865574c13574" reference="definitions/Provisioning-Continue.cs" />
 		<ArtifactReference id="ec743a26-0270-49b2-9ace-0ecaf1d8655e" reference="definitions/Started-Cancel.cs" />

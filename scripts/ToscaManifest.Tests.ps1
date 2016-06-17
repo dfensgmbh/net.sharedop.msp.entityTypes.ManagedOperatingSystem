@@ -282,7 +282,7 @@ Describe -Tags "Test-ToscaManifest" "Test-ToscaManifest" {
 					}
 					else
 					{
-						$result = Invoke-RestMethod ("{0}/{1}" -f (Get-Variable -Name baseUri -ValueOnly).AbsoluteUri, $uriArtifactReference.OriginalString)
+						$result = Invoke-RestMethod ("{0}/{1}" -f (Get-Variable -Name baseUri -ValueOnly).AbsoluteUri, $uriArtifactReference.OriginalString);
 					}
 					$result | Should Not Be $null;
 				}

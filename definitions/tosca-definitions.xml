@@ -227,7 +227,7 @@
 	</NodeTypeImplementation>
 
 	<ArtifactReferences>
-		<ArtifactReference id="6db78fe0-5952-405e-914e-6704c3d43b9d" reference="https://raw.githubusercontent.com/dfensgmbh/net.sharedop.cms.entityTypes.ManagedOperatingSystem/master/scripts/OnCreated.bpmn20.xml" />
+		<ArtifactReference id="6db78fe0-5952-405e-914e-6704c3d43b9d" reference="https://raw.githubusercontent.com/dfensgmbh/net.sharedop.msp.entityTypes.ManagedOperatingSystem/master/scripts/OnCreated.bpmn20.xml" />
 		<ArtifactReference id="b96c8e34-f321-429c-bb8d-987407842331" reference="scripts/OnDeplyoment.bpmn20.xml" />
 		<ArtifactReference id="eb647d6c-3af0-4ee7-959d-7d99f567be85" reference="scripts/OnProvisioning.bpmn20.xml" />
 		<ArtifactReference id="cd116073-97b7-45d0-879d-5177de92158d" reference="scripts/OnStarted.bpmn20.xml" />
